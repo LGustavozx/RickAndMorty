@@ -1,0 +1,17 @@
+<div *ngIf="episode.length === 0 && !loading" class="alert alert-info">
+  Nenhum personagem encontrado.
+</div>
+<div *ngIf="episode" class="episode-details">
+  <h1>{{ episode.name }}</h1>
+  <p>Data de transmissão: {{ episode.air_date }}</p>
+  <p>Episodio: {{ episode.episode }}</p>
+  <h2>Personagens:</h2>
+  <ul>
+    <li *ngFor="let characterUrl of episode.characters">
+      <a [routerLink]="['/characters', getCharacterId(characterUrl)]">{{ getCharacterName(characterUrl) }}</a>
+    </li>
+  </ul>
+</div>
+<div *ngIf="!episode" class="alert alert-danger">
+  Episode not found.
+</div>

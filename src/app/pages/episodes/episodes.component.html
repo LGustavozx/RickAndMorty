@@ -1,0 +1,15 @@
+<div class="episode-list">
+  <div class="row justify-content-center">
+    <div *ngFor="let episode of episodes" class="col-md-4 episode-card">
+      <div class="card mb-4">
+        <div class="card-body p-2">
+          <h5 class="card-title">{{ episode.name }}</h5>
+          <p class="card-text">{{ episode.air_date }}</p>
+          <div class="d-flex justify-content-end">
+            <a [routerLink]="['/episodes', episode.id]" class="btn btn-info">Ver detalhes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

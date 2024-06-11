@@ -1,0 +1,24 @@
+<div *ngIf="characters.length === 0 && !loading" class="alert alert-info">
+  Nenhum personagem encontrado.
+</div>
+<div *ngIf="characters.length > 0" class="character-list">
+  <div class="row justify-content-center">
+    <div *ngFor="let character of characters" class="col-md-4 character-card">
+      <div class="card mb-4">
+        <img [src]="character.image" class="card-img-top" alt="{{ character.name }}">
+        <div class="card-body p-2">
+          <h5 class="card-title">{{ character.name }}</h5>
+          <p class="card-text">{{ character.status }}</p>
+          <div class="d-flex justify-content-end">
+            <a [routerLink]="['/characters', character.id]" class="btn btn-info">Ver Detalhes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="loading" class="text-center my-3">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
