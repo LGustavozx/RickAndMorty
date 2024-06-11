@@ -15,6 +15,7 @@ export class CharactersComponent implements OnInit {
   page = 1;
   searchTerm: string = '';
   loading = false;
+  allPagesLoaded: boolean = false; // Adicionada esta linha
   searchSubject: Subject<string> = new Subject();
 
   constructor(private rickMortyService: RickMortyService, private route: ActivatedRoute, private router: Router) {}
@@ -24,6 +25,7 @@ export class CharactersComponent implements OnInit {
       this.searchTerm = params['search'] || '';
       this.characters = [];
       this.page = 1;
+      this.allPagesLoaded = false; // Resetar o flag quando um novo termo de busca é iniciado
       this.loadCharacters();
     });
 
@@ -33,16 +35,27 @@ export class CharactersComponent implements OnInit {
   }
 
   loadCharacters(): void {
-    if (this.loading) {
+    if (this.loading || this.allPagesLoaded) {
       return;
     }
 
     this.loading = true;
     this.rickMortyService.getCharacters(this.page, this.searchTerm).subscribe(data => {
-      if (this.page === 1) {
-        this.characters = data.results;
+      if (data.results.length === 0) {
+        this.allPagesLoaded = true; // Não há mais personagens para carregar
       } else {
-        this.characters = [...this.characters, ...data.results];
+        if (this.page === 1) {
+          this.characters = data.results;
+        } else {
+          this.characters = [...this.characters, ...data.results];
+        }
+        this.page++;
+      }
+      this.loading = false;
+    },
+    error => {
+      if (error.status === 404) {
+        this.allPagesLoaded = true; // Não há mais personagens para carregar
       }
       this.loading = false;
     });
@@ -65,7 +78,6 @@ export class CharactersComponent implements OnInit {
     const max = document.documentElement.scrollHeight;
 
     if (pos >= max && !this.loading) {
-      this.page++;
       this.loadCharacters();
     }
   }

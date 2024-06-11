@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, forkJoin } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,23 @@ export class RickMortyService {
         }
         return this.handleError<any>('getEpisodes', { results: [] })(error);
       })
+    );
+  }
+
+  getAllEpisodes(searchTerm: string = ''): Observable<any[]> {
+    const url = `${this.apiUrl}/episode${searchTerm ? `?name=${searchTerm}` : ''}`;
+    return this.http.get(url).pipe(
+      mergeMap((data: any) => {
+        const pages = data.info.pages;
+        const requests = [];
+        for (let i = 1; i <= pages; i++) {
+          requests.push(this.getEpisodes(i, searchTerm));
+        }
+        return forkJoin(requests).pipe(
+          map(responses => responses.reduce((acc, curr) => acc.concat(curr.results), []))
+        );
+      }),
+      catchError(this.handleError<any>('getAllEpisodes', []))
     );
   }
 

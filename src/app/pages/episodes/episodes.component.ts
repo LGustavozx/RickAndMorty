@@ -16,6 +16,7 @@ export class EpisodesComponent implements OnInit {
   searchTerm: string = '';
   loading = false;
   searchSubject: Subject<string> = new Subject();
+  allPagesLoaded: boolean = false;
 
   constructor(private rickMortyService: RickMortyService, private route: ActivatedRoute, private router: Router) {}
 
@@ -24,6 +25,7 @@ export class EpisodesComponent implements OnInit {
       this.searchTerm = params['search'] || '';
       this.episodes = []; // Reset episodes on new search
       this.page = 1; // Reset page on new search
+      this.allPagesLoaded = false; // Reset the flag on new search
       this.loadEpisodes();
     });
 
@@ -33,19 +35,32 @@ export class EpisodesComponent implements OnInit {
   }
 
   loadEpisodes(): void {
-    if (this.loading) {
+    if (this.loading || this.allPagesLoaded) {
       return;
     }
 
     this.loading = true;
-    this.rickMortyService.getEpisodes(this.page, this.searchTerm).subscribe(data => {
-      if (this.page === 1) {
-        this.episodes = data.results;
-      } else {
-        this.episodes = [...this.episodes, ...data.results];
+    this.rickMortyService.getEpisodes(this.page, this.searchTerm).subscribe(
+      data => {
+        if (data.results.length === 0) {
+          this.allPagesLoaded = true; // No more episodes to load
+        } else {
+          if (this.page === 1) {
+            this.episodes = data.results;
+          } else {
+            this.episodes = [...this.episodes, ...data.results];
+          }
+          this.page++;
+        }
+        this.loading = false;
+      },
+      error => {
+        if (error.status === 404) {
+          this.allPagesLoaded = true; // No more episodes to load
+        }
+        this.loading = false;
       }
-      this.loading = false;
-    });
+    );
   }
 
   onSearch(): void {
@@ -65,7 +80,6 @@ export class EpisodesComponent implements OnInit {
     const max = document.documentElement.scrollHeight;
 
     if (pos >= max && !this.loading) {
-      this.page++;
       this.loadEpisodes();
     }
   }

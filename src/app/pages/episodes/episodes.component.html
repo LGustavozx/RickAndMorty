@@ -1,6 +1,3 @@
-<div *ngIf="episodes.length === 0 && !loading" class="alert alert-info">
-  Nenhum episódio encontrado.
-</div>
 <div *ngIf="episodes.length > 0" class="episode-list">
   <div class="row justify-content-center">
     <div *ngFor="let episode of episodes" class="col-md-4 episode-card">
@@ -21,3 +18,11 @@
     <span class="sr-only">Loading...</span>
   </div>
 </div>
+
+<div *ngIf="allPagesLoaded && !loading && !searchTerm" class="alert alert-info">
+  Não há mais episódios.
+</div>
+<div *ngIf="episodes.length === 0 && !loading && searchTerm.length >= 3" class="alert alert-info">
+  Nenhum episódio encontrado.
+</div>
+
