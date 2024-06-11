@@ -18,26 +18,32 @@ export class RickMortyService {
         if (error.status === 404) {
           return of({ results: [] });
         }
-        return this.handleError('getCharacters', [])(error);
+        return this.handleError<any>('getCharacters', { results: [] })(error);
       })
     );
   }
 
   getCharacter(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/character/${id}`).pipe(
-      catchError(this.handleError('getCharacter'))
+      catchError(this.handleError<any>('getCharacter'))
     );
   }
 
-  getEpisodes(page: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/episode?page=${page}`).pipe(
-      catchError(this.handleError('getEpisodes', []))
+  getEpisodes(page: number, searchTerm: string = ''): Observable<any> {
+    const url = `${this.apiUrl}/episode?page=${page}${searchTerm ? `&name=${searchTerm}` : ''}`;
+    return this.http.get(url).pipe(
+      catchError(error => {
+        if (error.status === 404) {
+          return of({ results: [] });
+        }
+        return this.handleError<any>('getEpisodes', { results: [] })(error);
+      })
     );
   }
 
   getEpisode(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/episode/${id}`).pipe(
-      catchError(this.handleError('getEpisode'))
+      catchError(this.handleError<any>('getEpisode'))
     );
   }
 

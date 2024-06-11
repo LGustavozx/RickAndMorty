@@ -1,4 +1,7 @@
-<div class="episode-list">
+<div *ngIf="episodes.length === 0 && !loading" class="alert alert-info">
+  Nenhum episódio encontrado.
+</div>
+<div *ngIf="episodes.length > 0" class="episode-list">
   <div class="row justify-content-center">
     <div *ngFor="let episode of episodes" class="col-md-4 episode-card">
       <div class="card mb-4">
@@ -6,10 +9,15 @@
           <h5 class="card-title">{{ episode.name }}</h5>
           <p class="card-text">{{ episode.air_date }}</p>
           <div class="d-flex justify-content-end">
-            <a [routerLink]="['/episodes', episode.id]" class="btn btn-info">Ver detalhes</a>
+            <a [routerLink]="['/episodes', episode.id]" class="btn btn-info">Ver Detalhes</a>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div *ngIf="loading" class="text-center my-3">
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
   </div>
 </div>

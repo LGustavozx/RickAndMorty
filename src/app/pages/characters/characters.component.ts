@@ -22,8 +22,8 @@ export class CharactersComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.searchTerm = params['search'] || '';
-      this.characters = []; // Reset characters on new search
-      this.page = 1; // Reset page on new search
+      this.characters = [];
+      this.page = 1;
       this.loadCharacters();
     });
 
