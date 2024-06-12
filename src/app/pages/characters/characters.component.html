@@ -1,7 +1,7 @@
 <div *ngIf="characters.length > 0" class="character-list">
   <div class="row justify-content-center">
     <div *ngFor="let character of characters" class="col-md-4 character-card">
-      <div class="card mb-4">
+      <div class="card mb-4" style="width: 80%;">
         <img [src]="character.image" class="card-img-top" alt="{{ character.name }}">
         <div class="card-body p-2">
           <h5 class="card-title">{{ character.name }}</h5>

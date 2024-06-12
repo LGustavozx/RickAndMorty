@@ -12,9 +12,9 @@ import { EpisodesComponent } from './pages/episodes/episodes.component';
 import { CharacterDetailsComponent } from './pages/character-details/character-details.component';
 import { EpisodeDetailsComponent } from './pages/episode-details/episode-details.component';
 import { LoginComponent } from './pages/login/login.component';
-import { ProfileComponent } from './pages/profile/profile.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +26,6 @@ import { AuthGuard } from './guards/auth.guard';
     CharacterDetailsComponent,
     EpisodeDetailsComponent,
     LoginComponent,
-    ProfileComponent
   ],
   imports: [
     BrowserModule,

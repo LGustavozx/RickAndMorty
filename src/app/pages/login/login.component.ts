@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +15,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (!this.authService.login(this.username, this.password)) {
-      this.errorMessage = 'Invalid username or password';
+      this.errorMessage = 'Usuário ou senha incorretos';
     }
   }
 }

@@ -1,4 +1,3 @@
-// app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -22,7 +21,7 @@ export class AppComponent implements OnInit {
         const url = event.urlAfterRedirects;
         this.showSearch = !url.includes('/characters/') && !url.includes('/episodes/') && !url.includes('/login');
         this.showBackButton = url.includes('/characters/') || url.includes('/episodes/');
-        this.showSidebar = !url.includes('/login');  // Esconder sidebar na página de login
+        this.showSidebar = !url.includes('/login'); 
       }
     });
 
