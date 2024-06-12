@@ -1,5 +1,6 @@
+// app.component.ts
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -10,16 +11,18 @@ import { debounceTime } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   searchTerm: string = '';
-  showSearch: boolean = false;
+  showSearch: boolean = true;
   showBackButton: boolean = false;
+  showSidebar: boolean = true;
   searchSubject: Subject<string> = new Subject();
-  previousUrl: string | null = null;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = event.urlAfterRedirects;
-        this.updateVisibility(url);
+        this.showSearch = !url.includes('/characters/') && !url.includes('/episodes/') && !url.includes('/login');
+        this.showBackButton = url.includes('/characters/') || url.includes('/episodes/');
+        this.showSidebar = !url.includes('/login');  // Esconder sidebar na página de login
       }
     });
 
@@ -28,13 +31,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(params => {
-      if (params['search']) {
-        this.searchTerm = params['search'];
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   onSearch(): void {
     this.searchSubject.next(this.searchTerm);
@@ -48,17 +45,6 @@ export class AppComponent implements OnInit {
   }
 
   goBack(): void {
-    if (this.previousUrl) {
-      this.router.navigate([this.previousUrl], { queryParamsHandling: 'preserve' });
-    }
-  }
-
-  private updateVisibility(url: string): void {
-    this.showSearch = url.includes('/characters') || url.includes('/episodes');
-    this.showBackButton = url.includes('/characters/') || url.includes('/episodes/');
-
-    if (this.showBackButton) {
-      this.previousUrl = url.includes('/characters/') ? '/characters' : '/episodes';
-    }
+    this.router.navigate([this.router.url.split('/').slice(0, -1).join('/')]);
   }
 }

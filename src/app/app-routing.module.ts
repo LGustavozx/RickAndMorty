@@ -4,8 +4,6 @@ import { CharactersComponent } from './pages/characters/characters.component';
 import { EpisodesComponent } from './pages/episodes/episodes.component';
 import { CharacterDetailsComponent } from './pages/character-details/character-details.component';
 import { EpisodeDetailsComponent } from './pages/episode-details/episode-details.component';
-
-
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';

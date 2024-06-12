@@ -6,11 +6,31 @@ header {
   top: 0;
   z-index: 1000;
 
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .navbar-brand {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     text-decoration: none;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+
+  .navbar-nav {
+    position: absolute;
+    right: 20px; 
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    color: #333;
 
     &:hover {
       color: #0056b3;

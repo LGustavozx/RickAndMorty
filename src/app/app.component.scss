@@ -1,16 +1,25 @@
 .container-fluid {
-  margin-top: 56px; /* Altura do header fixo */
+  margin-top: 56px;
 }
 
 .row {
-  height: auto
+  height: auto;
 }
 
 aside {
-  width: 200px; /* Largura do sidebar */
+  width: 200px;
 }
 
 .content {
-  margin-left: 200px; /* Largura do sidebar */
+  margin-left: 200px;
   padding: 20px;
+}
+
+
+.login-container .content {
+  margin-left: 0;
+}
+
+body {
+  overflow-x: hidden;
 }
