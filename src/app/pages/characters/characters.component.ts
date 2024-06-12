@@ -42,7 +42,7 @@ export class CharactersComponent implements OnInit {
     this.loading = true;
     this.rickMortyService.getCharacters(this.page, this.searchTerm).subscribe(data => {
       if (data.results.length === 0) {
-        this.allPagesLoaded = true; // Não há mais personagens para carregar
+        this.allPagesLoaded = true;
       } else {
         if (this.page === 1) {
           this.characters = data.results;
@@ -55,7 +55,7 @@ export class CharactersComponent implements OnInit {
     },
     error => {
       if (error.status === 404) {
-        this.allPagesLoaded = true; // Não há mais personagens para carregar
+        this.allPagesLoaded = true;
       }
       this.loading = false;
     });

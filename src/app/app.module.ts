@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -12,6 +11,10 @@ import { CharactersComponent } from './pages/characters/characters.component';
 import { EpisodesComponent } from './pages/episodes/episodes.component';
 import { CharacterDetailsComponent } from './pages/character-details/character-details.component';
 import { EpisodeDetailsComponent } from './pages/episode-details/episode-details.component';
+import { LoginComponent } from './pages/login/login.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { AuthService } from './services/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -21,17 +24,17 @@ import { EpisodeDetailsComponent } from './pages/episode-details/episode-details
     CharactersComponent,
     EpisodesComponent,
     CharacterDetailsComponent,
-    EpisodeDetailsComponent
+    EpisodeDetailsComponent,
+    LoginComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    RouterModule,
-    
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

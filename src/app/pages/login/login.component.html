@@ -1,0 +1,18 @@
+<div class="d-flex align-items-center vh-100">
+  <div class="mx-auto text-center shadow-sm bg-white rounded p-5 my-5">
+    <form class="form-signin" (ngSubmit)="onSubmit()">
+      <i class="fa fa-users mb-2"></i>
+      <h1 class="h3 mb-3 font-weight-normal">Entrar com</h1>
+      <div style="padding: 10px;">
+        <label for="username" class="sr-only">Usuário</label>
+        <input type="text" id="username" class="form-control" placeholder="Usuário" [(ngModel)]="username" name="username" required>
+      </div>
+      <div style="padding: 10px;">
+        <label for="password" class="sr-only">Senha</label>
+        <input type="password" id="password" class="form-control" placeholder="Senha" [(ngModel)]="password" name="password" required>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+      <p class="mt-4 mb-2 text-muted">{{ errorMessage }}</p>
+    </form>
+  </div>
+</div>
