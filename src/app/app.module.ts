@@ -14,6 +14,7 @@ import { EpisodeDetailsComponent } from './pages/episode-details/episode-details
 import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { AuthGuard } from './guards/auth.guard';
     CharacterDetailsComponent,
     EpisodeDetailsComponent,
     LoginComponent,
+    ConfirmationModalComponent,
   ],
   imports: [
     BrowserModule,

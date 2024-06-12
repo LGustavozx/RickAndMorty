@@ -5,8 +5,9 @@
     </a>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" *ngIf="authService.isLoggedIn()">
-        <a class="nav-link" (click)="logout()" style="cursor: pointer;">Logout</a>
+        <a class="nav-link" (click)="showLogoutModal()" style="cursor: pointer;">Logout</a>
       </li>
     </ul>
   </div>
 </header>
+<app-confirmation-modal></app-confirmation-modal>

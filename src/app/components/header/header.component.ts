@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +12,15 @@ export class HeaderComponent {
 
   constructor(public authService: AuthService) {}
 
-
   showMenu(): boolean {
-
     return true;
   }
 
-  logout(): void {
-    this.authService.logout();
+  showLogoutModal(): void {
+    const modalElement = document.getElementById('confirmationModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
   }
 }
